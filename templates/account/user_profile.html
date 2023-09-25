@@ -1,0 +1,50 @@
+<!-- prettier-ignore -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+User Profile
+{% endblock title %}
+
+{% block content %}
+<main>
+  <section class="container">
+    <h1 class="my-4">Billing overview</h1>
+    <h6>
+      Credit remaining
+
+      <!--tooltip-->
+      <div class="tooltip-container">
+        <!--tooltip button-->
+        <span class="tooltip-trigger"
+          ><img
+            src="{% static '/img/tooltip-icon.png' %}"
+            alt="Toolip icon"
+            class="tooltip-icon text-secondary"
+        /></span>
+        <!--tooltip text-->
+        <div class="tooltip">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima magnam
+          modi harum architecto molestias, qui debitis aut dolore. Dolorem,
+          iste?
+        </div>
+      </div>
+    </h6>
+    <h3>$ {{ user.balance }}</h3>
+    <button class="btn btn-success btn-sm my-2">TopUp</button>
+    <button class="btn btn-outline-secondary btn-sm my-2">View usages</button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Token</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ token }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+{% endblock content %}

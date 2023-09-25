@@ -1,0 +1,84 @@
+/* Custom CSS for the alert container */
+.alert-container {
+  position: fixed;
+  top: 100px; /* Adjust the margin from the top as needed */
+  right: 10px;
+  z-index: 1000;
+  height: 45px;
+  background-color: #f8f9fa;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  display: block; /* Initially visible */
+  animation: slide-in 0.5s ease-in-out, fade-out 0.5s ease-in-out 7.5s forwards;
+}
+
+/* Keyframes for the slide-in animation */
+@keyframes slide-in {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Keyframes for the fade-out animation */
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-google {
+  height: 20px;
+  width: 30px;
+}
+
+/* **************** */
+/* TOOL TIP STYLE*/
+/* *************** */
+.tooltip-icon {
+  height: 15px;
+  width: 15px;
+  opacity: 0.7;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-trigger {
+  cursor: pointer;
+}
+
+.tooltip {
+  visibility: hidden;
+  background-color: #555;
+  color: #f0eded;
+  text-align: center;
+  border-radius: 4px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  left: 170px;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  width: 300px;
+}
+
+.tooltip-container:hover .tooltip {
+  text-align: start;
+  visibility: visible;
+  opacity: 1;
+}

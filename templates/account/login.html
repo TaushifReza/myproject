@@ -1,0 +1,36 @@
+<!-- prettier-ignore -->
+{% extends 'base.html' %}
+
+{% block title %}
+Log In
+{% endblock title %}
+
+{% block content %}
+<section class="form-section row justify-content-center my-5">
+  <form
+    class="col-4 p-4 border rounded border-success"
+    action="{% url 'login' %}"
+    method="POST"
+  >
+    {% csrf_token %}
+    <h4 class="text-center text-secondary">Log In</h4>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" class="form-control" name="email" />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" class="form-control" name="password" />
+    </div>
+    <a href="#" class="nav-link text-end mb-3">Forgot password?</a>
+
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-success btn-lg mt-2">Log In</button>
+    </div>
+
+    <a href="{% url 'register_user' %}" class="nav-link text-center mt-3"
+      >Not a member? <span class="text-success">Register</span></a
+    >
+  </form>
+</section>
+{% endblock content %}
