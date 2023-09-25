@@ -1,29 +1,22 @@
-from django.shortcuts import redirect, render
-from django.contrib import messages, auth
 from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.http import HttpResponse
-from django.utils import timezone
+
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
-from rest_framework import filters
+
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.throttling import UserRateThrottle
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.settings import api_settings
 
 
-from .forms import UserForm
 from .models import User
 
 from .serializers import (
@@ -48,68 +41,7 @@ from .utils import (
 
 
 def home(request):
-    return render(request, "index.html")
-
-
-def register_user(request):
-    if request.user.is_authenticated:
-        messages.warning(request, "You are already login")
-        return redirect("user_profile")
-    elif request.method == "POST":
-        form = UserForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data["email"]
-            password = form.cleaned_data["password"]
-            user = User.objects.create_user(
-                email=email,
-                password=password,
-            )
-            user.save()
-            messages.success(request, "You have successfully create an account!!!")
-            return redirect("home")
-    else:
-        form = UserForm()
-    context = {
-        "form": form,
-    }
-    return render(request, "account/register_user.html", context)
-
-
-def login(request):
-    if request.user.is_authenticated:
-        messages.warning(request, "You are already login")
-        return redirect("user_profile")
-    elif request.method == "POST":
-        email = request.POST["email"]
-        password = request.POST["password"]
-
-        user = auth.authenticate(email=email, password=password)
-
-        if user is not None:
-            token, _ = Token.objects.get_or_create(user=user)
-            auth.login(request, user)
-            return redirect("home")
-        else:
-            messages.error(request, "Invalid email and Password!!!")
-            return redirect("login")
-    return render(request, "account/login.html")
-
-
-def logout(request):
-    auth.logout(request)
-    messages.info(request, "You have logout!!!")
-    return redirect("login")
-
-
-@login_required(login_url="login")
-def user_profile(request):
-    # Get the Token associated with the currently logged-in user
-    try:
-        token = Token.objects.get(user=request.user)
-    except Token.DoesNotExist:
-        token = None
-
-    return render(request, "account/user_profile.html", {"token": token})
+    return HttpResponse("Welcome to my site")
 
 
 # API View Logic
